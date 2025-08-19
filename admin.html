@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel – Product Master Management | Relavel</title>
+    <link rel="stylesheet" href="css/admin.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="admin-header">
+        <div class="container">
+            <div class="header-content">
+                <h1>🛍️ Relavel Admin Panel</h1>
+                <nav class="admin-nav">
+                    <a href="index.html" class="nav-link">← Back to Store</a>
+                    <a href="#products" class="nav-link active">Products</a>
+                    <a href="#analytics" class="nav-link">Analytics</a>
+                    <a href="#settings" class="nav-link">Settings</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="admin-main">
+        <div class="container">
+            <!-- Dashboard Stats -->
+            <section class="dashboard-stats">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">📦</div>
+                        <div class="stat-info">
+                            <h3 id="total-products">0</h3>
+                            <p>Total Products</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">🛒</div>
+                        <div class="stat-info">
+                            <h3 id="cart-items">0</h3>
+                            <p>Items in Cart</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">📧</div>
+                        <div class="stat-info">
+                            <h3 id="newsletter-subscribers">0</h3>
+                            <p>Newsletter Subscribers</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">💰</div>
+                        <div class="stat-info">
+                            <h3 id="total-value">$0</h3>
+                            <p>Total Inventory Value</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Product Management Section -->
+            <section class="product-management" id="products">
+                <div class="section-header">
+                    <h2>Product Master Management</h2>
+                    <button class="btn btn-primary" id="add-product-btn">+ Add New Product</button>
+                </div>
+
+                <!-- Product Form -->
+                <div class="product-form-container" id="product-form-container">
+                    <form class="product-form" id="product-form">
+                        <div class="form-header">
+                            <h3 id="form-title">Add New Product</h3>
+                            <button type="button" class="close-form" id="close-form">×</button>
+                        </div>
+
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="product-name">Product Name *</label>
+                                <input type="text" id="product-name" name="name" required 
+                                       placeholder="Enter product name">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="product-category">Category *</label>
+                                <select id="product-category" name="category" required>
+                                    <option value="">Select Category</option>
+                                    <option value="best-seller">Best Seller</option>
+                                    <option value="new-products">New Products</option>
+                                    <option value="makeup-cases">Makeup Cases</option>
+                                    <option value="train-cases">Train Cases</option>
+                                    <option value="brush-cases">Brush Cases</option>
+                                    <option value="rolling-cases">Rolling Cases</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group full-width">
+                                <label for="product-description">Description *</label>
+                                <textarea id="product-description" name="description" required 
+                                          placeholder="Enter detailed product description" rows="4"></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="product-image">Image URL *</label>
+                                <input type="url" id="product-image" name="imageUrl" required 
+                                       placeholder="https://example.com/image.jpg">
+                                <small>Enter a valid image URL</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="original-price">Original Price *</label>
+                                <input type="number" id="original-price" name="originalPrice" 
+                                       step="0.01" min="0" required placeholder="0.00">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="sale-price">Sale Price *</label>
+                                <input type="number" id="sale-price" name="salePrice" 
+                                       step="0.01" min="0" required placeholder="0.00">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="discount-percent">Discount %</label>
+                                <input type="number" id="discount-percent" name="discountPercent" 
+                                       min="0" max="100" readonly placeholder="Auto-calculated">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="product-colors">Available Colors</label>
+                                <input type="text" id="product-colors" name="colors" 
+                                       placeholder="e.g., #000000, #FF69B4, #8B4513">
+                                <small>Enter hex color codes separated by commas</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="stock-quantity">Stock Quantity</label>
+                                <input type="number" id="stock-quantity" name="stockQuantity" 
+                                       min="0" placeholder="100">
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-secondary" id="cancel-btn">Cancel</button>
+                            <button type="submit" class="btn btn-primary" id="save-btn">Save Product</button>
+                        </div>
+
+                        <!-- Form Messages -->
+                        <div class="form-messages">
+                            <div class="error-message" id="form-error"></div>
+                            <div class="success-message" id="form-success"></div>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Products List -->
+                <div class="products-list">
+                    <div class="list-header">
+                        <h3>Current Products</h3>
+                        <div class="list-actions">
+                            <input type="search" id="search-products" placeholder="Search products...">
+                            <select id="filter-category">
+                                <option value="">All Categories</option>
+                                <option value="best-seller">Best Seller</option>
+                                <option value="new-products">New Products</option>
+                                <option value="makeup-cases">Makeup Cases</option>
+                                <option value="train-cases">Train Cases</option>
+                                <option value="brush-cases">Brush Cases</option>
+                                <option value="rolling-cases">Rolling Cases</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="products-table-container">
+                        <table class="products-table" id="products-table">
+                            <thead>
+                                <tr>
+                                    <th>Image</th>
+                                    <th>Name</th>
+                                    <th>Category</th>
+                                    <th>Original Price</th>
+                                    <th>Sale Price</th>
+                                    <th>Discount</th>
+                                    <th>Stock</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="products-table-body">
+                                <tr class="loading-row">
+                                    <td colspan="8">Loading products...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Analytics Section -->
+            <section class="analytics-section" id="analytics" style="display: none;">
+                <h2>Analytics Dashboard</h2>
+                <div class="analytics-grid">
+                    <div class="chart-container">
+                        <h3>Sales by Category</h3>
+                        <div class="chart-placeholder">
+                            <p>📊 Chart visualization would go here</p>
+                            <p>In a real application, this would show interactive charts</p>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <h3>Monthly Revenue</h3>
+                        <div class="chart-placeholder">
+                            <p>📈 Revenue trends would be displayed here</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Settings Section -->
+            <section class="settings-section" id="settings" style="display: none;">
+                <h2>Settings</h2>
+                <div class="settings-grid">
+                    <div class="setting-group">
+                        <h3>Store Settings</h3>
+                        <div class="setting-item">
+                            <label>Store Name</label>
+                            <input type="text" value="Relavel Bags" readonly>
+                        </div>
+                        <div class="setting-item">
+                            <label>Currency</label>
+                            <select>
+                                <option value="USD">USD ($)</option>
+                                <option value="EUR">EUR (€)</option>
+                                <option value="GBP">GBP (£)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="setting-group">
+                        <h3>Data Management</h3>
+                        <div class="setting-actions">
+                            <button class="btn btn-secondary" id="export-data">Export Data</button>
+                            <button class="btn btn-danger" id="clear-data">Clear All Data</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Delete Confirmation Modal -->
+    <div class="modal" id="delete-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Confirm Delete</h3>
+                <button class="close-modal" id="close-delete-modal">×</button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete this product? This action cannot be undone.</p>
+                <div class="modal-actions">
+                    <button class="btn btn-secondary" id="cancel-delete">Cancel</button>
+                    <button class="btn btn-danger" id="confirm-delete">Delete Product</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <script src="js/admin.js"></script>
+</body>
+</html>
